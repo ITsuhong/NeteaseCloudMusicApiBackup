@@ -1,5 +1,5 @@
 // module/test.js
-const { match } = require('@unblockneteasemusic/server');
+const match = require('@unblockneteasemusic/server');
 
 // 默认支持的平台
 const DEFAULT_PLATFORMS = ['qq', 'kugou', 'kuwo', 'youtube', 'bilibili'];
