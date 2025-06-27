@@ -1,5 +1,5 @@
 // module/test.js
-const { unblockMusic } = require('@unblockneteasemusic/server');
+const { match } = require('@unblockneteasemusic/server');
 
 // 默认支持的平台
 const DEFAULT_PLATFORMS = ['qq', 'kugou', 'kuwo', 'youtube', 'bilibili'];
@@ -42,7 +42,7 @@ module.exports = async (query, request) => {
     }
 
     // 调用解锁功能
-    const result = await unblockMusic(id, songData, platformList);
+    const result = await match(id, platformList,songData );
 
     // 是否返回原始数据
     if (raw) {
