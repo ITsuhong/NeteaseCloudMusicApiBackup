@@ -8,7 +8,7 @@ const cache = require('./util/apicache').middleware
 const { cookieToJson } = require('./util/index')
 const fileUpload = require('express-fileupload')
 const decode = require('safe-decode-uri-component')
-
+const match = require('@unblockneteasemusic/server');
 /**
  * The version check result.
  * @readonly
@@ -280,7 +280,36 @@ async function consturctServer(moduleDefs) {
       }
     })
   }
+  app.post('/unbloack_music', async (req, res) => {
+    const DEFAULT_PLATFORMS = ['qq', 'kugou', 'kuwo', 'youtube', 'bilibili'];
 
+    try {
+      const { id, songData } = req.body;
+      console.log(req.body);
+
+
+      if (!id) {
+        return res.status(400).json({
+          code: 400,
+          msg: '缺少必要参数: id'
+        });
+      }
+
+      const result = await match(parseInt(id), DEFAULT_PLATFORMS, songData);
+      console.log(match, 'cuowu');
+      res.status(200).json({
+        code: 200,
+        data: result
+      });
+    } catch (error) {
+
+
+      res.status(500).json({
+        code: 500,
+        msg: error
+      });
+    }
+  });
   return app
 }
 
